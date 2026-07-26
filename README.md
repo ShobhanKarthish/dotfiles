@@ -4,7 +4,7 @@ Omarchy/Hyprland-inspired macOS setup using:
 
 - **yabai** for BSP window tiling
 - **skhd** for keyboard shortcuts
-- **SketchyBar** for workspaces and system status
+- **SketchyBar + SbarLua** for a modular Lua status bar
 - **Ghostty** terminal configuration
 - **Raycast** as the launcher
 
@@ -15,7 +15,7 @@ This repository uses [GNU Stow](https://www.gnu.org/software/stow/). Each top-le
 ```text
 yabai/.yabairc
 skhd/.skhdrc
-sketchybar/.config/sketchybar/
+sketchybar/.config/sketchybar/    # Modular Lua configuration
 ghostty/Library/Application Support/com.mitchellh.ghostty/config
 ```
 
@@ -27,7 +27,7 @@ cd ~/dotfiles
 ./bootstrap.sh
 ```
 
-Then grant **yabai** and **skhd** access in **System Settings → Privacy & Security → Accessibility**.
+The bootstrap installs Lua and builds the official SbarLua module locally. Then grant **yabai** and **skhd** access in **System Settings → Privacy & Security → Accessibility**.
 
 Reload Ghostty with `⌘⇧,` after installing.
 
