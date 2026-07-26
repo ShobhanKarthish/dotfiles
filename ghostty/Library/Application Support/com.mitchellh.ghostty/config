@@ -1,0 +1,2 @@
+# Send Ctrl+V when Command+V is pressed so pi can handle clipboard images.
+keybind = super+v=text:\x16
