@@ -5,7 +5,7 @@ A keyboard-driven macOS environment inspired by Omarchy/Hyprland.
 ## Configuration
 
 - [Ghostty](https://ghostty.org/) — [`.config/ghostty`](./.config/ghostty/)
-- [SketchyBar](https://github.com/FelixKratz/SketchyBar) with SbarLua — [`.config/sketchybar`](./.config/sketchybar/)
+- [SketchyBar](https://github.com/FelixKratz/SketchyBar) — [`.config/sketchybar`](./.config/sketchybar/)
 - [yabai](https://github.com/koekeishiya/yabai) — [`.config/yabai`](./.config/yabai/)
 - [skhd](https://github.com/koekeishiya/skhd) — [`.config/skhd`](./.config/skhd/)
 - [Raycast](https://www.raycast.com/) — launcher and clipboard history
@@ -48,14 +48,9 @@ ln -sfn "$HOME/.config/ghostty/shaders" "$HOME/Library/Application Support/com.m
 ln -sfn "$HOME/.config/ghostty/themes" "$HOME/Library/Application Support/com.mitchellh.ghostty/themes"
 ```
 
-Build SbarLua once:
-
-```bash
-tmp=$(mktemp -d /tmp/SbarLua.XXXXXX)
-git clone --depth 1 https://github.com/FelixKratz/SbarLua.git "$tmp"
-make -C "$tmp" install
-rm -rf "$tmp"
-```
+The SketchyBar configuration includes clickable Wi-Fi details, an interactive
+volume slider and output selector, and controls for paired Bluetooth devices.
+Its fonts and command-line dependencies are installed by the `Brewfile`.
 
 Start the desktop services:
 
