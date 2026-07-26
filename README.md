@@ -1,35 +1,72 @@
 # macOS dotfiles
 
-Omarchy/Hyprland-inspired macOS setup using:
+A keyboard-driven macOS environment inspired by Omarchy/Hyprland.
 
-- **yabai** for BSP window tiling
-- **skhd** for keyboard shortcuts
-- **SketchyBar + SbarLua** for a modular Lua status bar
-- **Ghostty** terminal configuration
-- **Raycast** as the launcher
+## Configuration
 
-## Layout
+- [Ghostty](https://ghostty.org/) — [`.config/ghostty`](./.config/ghostty/)
+- [SketchyBar](https://github.com/FelixKratz/SketchyBar) with SbarLua — [`.config/sketchybar`](./.config/sketchybar/)
+- [yabai](https://github.com/koekeishiya/yabai) — [`.config/yabai`](./.config/yabai/)
+- [skhd](https://github.com/koekeishiya/skhd) — [`.config/skhd`](./.config/skhd/)
+- [Raycast](https://www.raycast.com/) — launcher and clipboard history
 
-This repository uses [GNU Stow](https://www.gnu.org/software/stow/). Each top-level package mirrors its destination under `$HOME`:
+## Dotfile management
 
-```text
-yabai/.yabairc
-skhd/.skhdrc
-sketchybar/.config/sketchybar/    # Modular Lua configuration
-ghostty/Library/Application Support/com.mitchellh.ghostty/config
-```
+This repository follows the bare-repository layout used by
+[rockyzhang24/dotfiles](https://github.com/rockyzhang24/dotfiles). Files mirror
+their destination beneath `$HOME`; no Stow package directories or symlinks are
+needed.
 
-## Install
+### Initial setup
 
 ```bash
-git clone https://github.com/ShobhanKarthish/dotfiles.git ~/dotfiles
-cd ~/dotfiles
-./bootstrap.sh
+git init --bare "$HOME/dotfiles"
+alias dot='git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
+dot config status.showUntrackedFiles no
+dot remote add origin https://github.com/ShobhanKarthish/dotfiles.git
 ```
 
-The bootstrap installs Lua and builds the official SbarLua module locally. Then grant **yabai** and **skhd** access in **System Settings → Privacy & Security → Accessibility**.
+### Clone on another Mac
 
-Reload Ghostty with `⌘⇧,` after installing.
+```bash
+git clone --bare https://github.com/ShobhanKarthish/dotfiles.git "$HOME/dotfiles"
+alias dot='git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
+mkdir -p "$HOME/.config-backup"
+dot checkout 2>&1 | grep -E '^\s+\.' | awk '{print $1}' | xargs -I{} mv "$HOME/{}" "$HOME/.config-backup/{}"
+dot checkout
+dot config status.showUntrackedFiles no
+brew bundle --file "$HOME/Brewfile"
+```
+
+On macOS, Ghostty also checks its Application Support location. Link it to the
+tracked XDG configuration so there is one source of truth:
+
+```bash
+mkdir -p "$HOME/Library/Application Support/com.mitchellh.ghostty"
+ln -sfn "$HOME/.config/ghostty/config" "$HOME/Library/Application Support/com.mitchellh.ghostty/config"
+ln -sfn "$HOME/.config/ghostty/shaders" "$HOME/Library/Application Support/com.mitchellh.ghostty/shaders"
+ln -sfn "$HOME/.config/ghostty/themes" "$HOME/Library/Application Support/com.mitchellh.ghostty/themes"
+```
+
+Build SbarLua once:
+
+```bash
+tmp=$(mktemp -d /tmp/SbarLua.XXXXXX)
+git clone --depth 1 https://github.com/FelixKratz/SbarLua.git "$tmp"
+make -C "$tmp" install
+rm -rf "$tmp"
+```
+
+Start the desktop services:
+
+```bash
+yabai --start-service
+skhd --start-service
+brew services start sketchybar
+```
+
+Grant **yabai** and **skhd** access under **System Settings → Privacy & Security
+→ Accessibility**.
 
 ## Main shortcuts
 
@@ -48,4 +85,5 @@ Reload Ghostty with `⌘⇧,` after installing.
 | `⌥1–9` | Focus space |
 | `⌥⇧1–9` | Move window to space |
 
-Ghostty maps `⌘V` to pi's `Ctrl+V` handler so clipboard images can be pasted into pi. This changes `⌘V` behavior in all Ghostty sessions.
+Ghostty maps `⌘V` to pi's `Ctrl+V` handler so clipboard images can be pasted
+into pi. This changes `⌘V` behavior in all Ghostty sessions.
