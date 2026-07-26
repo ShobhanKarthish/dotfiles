@@ -1,11 +1,17 @@
 tap "koekeishiya/formulae"
 tap "felixkratz/formulae"
 
-brew "lua"
 brew "koekeishiya/formulae/yabai"
 brew "koekeishiya/formulae/skhd"
 brew "felixkratz/formulae/sketchybar"
+brew "blueutil"
+brew "ical-buddy"
+brew "jq"
+brew "switchaudio-osx"
 
 cask "ghostty"
 cask "raycast"
 cask "font-fira-code"
+cask "font-iosevka-nerd-font"
+cask "font-sketchybar-app-font"
+cask "sf-symbols"
