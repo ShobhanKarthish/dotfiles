@@ -5,7 +5,6 @@ A keyboard-driven macOS environment inspired by Omarchy/Hyprland.
 ## Configuration
 
 - [Ghostty](https://ghostty.org/) — [`.config/ghostty`](./.config/ghostty/)
-- [SketchyBar](https://github.com/FelixKratz/SketchyBar) — [`.config/sketchybar`](./.config/sketchybar/)
 - [yabai](https://github.com/koekeishiya/yabai) — [`.config/yabai`](./.config/yabai/)
 - [skhd](https://github.com/koekeishiya/skhd) — [`.config/skhd`](./.config/skhd/)
 - [Raycast](https://www.raycast.com/) — launcher and clipboard history
@@ -48,16 +47,11 @@ ln -sfn "$HOME/.config/ghostty/shaders" "$HOME/Library/Application Support/com.m
 ln -sfn "$HOME/.config/ghostty/themes" "$HOME/Library/Application Support/com.mitchellh.ghostty/themes"
 ```
 
-The SketchyBar configuration includes clickable Wi-Fi details, an interactive
-volume slider and output selector, and controls for paired Bluetooth devices.
-Its fonts and command-line dependencies are installed by the `Brewfile`.
-
 Start the desktop services:
 
 ```bash
 yabai --start-service
 skhd --start-service
-brew services start sketchybar
 ```
 
 Grant **yabai** and **skhd** access under **System Settings → Privacy & Security
@@ -79,6 +73,3 @@ Grant **yabai** and **skhd** access under **System Settings → Privacy & Securi
 | `⌥F` | Toggle fullscreen |
 | `⌥1–9` | Focus space |
 | `⌥⇧1–9` | Move window to space |
-
-Ghostty maps `⌘V` to pi's `Ctrl+V` handler so clipboard images can be pasted
-into pi. This changes `⌘V` behavior in all Ghostty sessions.

@@ -85,6 +85,3 @@ keybind = ctrl+shift+right=resize_split:right,10
 
 # Make <C-/> work in Neovim
 keybind = ctrl+/=text:\x1f
-
-# Paste images and text into pi with Command+V.
-keybind = super+v=text:\x16
